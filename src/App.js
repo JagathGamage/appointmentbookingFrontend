@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import Home from "./Home";
-import BookAppointment from "./BookAppointment";
-import MyAppointments from "./MyAppointments";
-import Login from "./Login";
-import Signup from "./Signup";
-import AdminPanel from "./AdminPanel";
+import Home from "./components/Home";
+import BookAppointment from "./components/BookAppointment";
+import MyAppointments from "./components/MyAppointments";
+import Login from "./Auth/Login";
+import Signup from "./Auth/Signup";
+import AdminPanel from "./components/AdminPanel";
 import { AppBar, Toolbar, Button, Typography, Container } from "@mui/material";
 
 // Check authentication status
@@ -74,7 +74,7 @@ function App() {
       <Container sx={{ mt: 4 }}>
         <Routes>
           {/* Redirect Admins trying to access User pages */}
-          <Route path="/" element={role === "ADMIN" ? <Navigate to="/admin" /> : <Home />} />
+          <Route path="/" element={role === "ADMIN" ? <Navigate to="/admin" /> :role ==="USER"?  <Home />:<Navigate to="/login" />} />
           <Route path="/myappointments" element={<ProtectedRoute element={<MyAppointments />} allowedRoles={["USER"]} />} />
           <Route path="/book-appointment/:appointmentId" element={<ProtectedRoute element={<BookAppointment />} allowedRoles={["USER"]} />} />
           <Route path="/admin" element={<ProtectedRoute element={<AdminPanel />} allowedRoles={["ADMIN"]} />} />
