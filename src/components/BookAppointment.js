@@ -18,6 +18,7 @@ const BookAppointment = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const token = localStorage.getItem("token");
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     fetchAppointmentDetails();
@@ -27,7 +28,7 @@ const BookAppointment = () => {
   const fetchAppointmentDetails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8080/api/appointments/getappointment/${appointmentId}`,
+        `${backendUrl}/api/appointments/getappointment/${appointmentId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -68,7 +69,7 @@ const BookAppointment = () => {
       }
 
       await axios.post(
-        "http://localhost:8080/api/appointments/book",
+        `${backendUrl}/api/appointments/book`,
         { appointmentId, ...formData },
         {
           headers: {

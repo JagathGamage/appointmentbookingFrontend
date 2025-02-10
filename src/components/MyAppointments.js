@@ -7,6 +7,7 @@ const MyAppointments = () => {
   const [appointments, setAppointments] = useState([]);
   const userEmail = localStorage.getItem("email");
   const token = localStorage.getItem("token");
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     if (!userEmail || !token) {
@@ -15,7 +16,7 @@ const MyAppointments = () => {
     }
 
     axios
-      .get(`http://localhost:8080/api/appointments/user/${userEmail}`, {
+      .get(`${backendUrl}/api/appointments/user/${userEmail}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json"
@@ -67,7 +68,7 @@ const MyAppointments = () => {
   const cancelAppointment = async (id) => {
     try {
       await axios.post(
-        `http://localhost:8080/api/appointments/cancel/${id}`,
+        `${backendUrl}/api/appointments/cancel/${id}`,
         {},
         {
           headers: {

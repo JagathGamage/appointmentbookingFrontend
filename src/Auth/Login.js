@@ -8,12 +8,13 @@ const Login = ({ setLoggedIn, setRole }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const handleLogin = async () => {
     setError("");
 
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/login", { email, password });
+      const response = await axios.post(`${backendUrl}/api/auth/login`, { email, password });
 
       // Store token and role in localStorage
       localStorage.setItem("token", response.data.token);

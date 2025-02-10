@@ -22,6 +22,7 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     fetchAvailableSlots();
@@ -29,7 +30,7 @@ const Home = () => {
 
   const fetchAvailableSlots = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/appointments/available");
+      const response = await axios.get(`${backendUrl}/api/appointments/available`);
       setSlots(response.data);
     } catch (error) {
       setError("Failed to load available slots. Please try again.");

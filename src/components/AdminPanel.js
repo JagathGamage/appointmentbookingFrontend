@@ -9,6 +9,7 @@ const AdminPanel = () => {
   const [editedAppointment, setEditedAppointment] = useState({ date: "", startTime: "", endTime: "" });
   const [errorMessage, setErrorMessage] = useState("");
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const token = localStorage.getItem("token");
 
@@ -18,7 +19,7 @@ const AdminPanel = () => {
 
   const fetchAppointments = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/appointments/admin/all", {
+      const response = await axios.get(`${backendUrl}/api/appointments/admin/all`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -46,7 +47,7 @@ const AdminPanel = () => {
   const handleAddAppointment = async () => {
     try {
       await axios.post(
-        "http://localhost:8080/api/appointments/admin/add",
+        `${backendUrl}/api/appointments/admin/add`,
         newAppointment,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -66,7 +67,7 @@ const AdminPanel = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/api/appointments/admin/delete/${id}`, {
+      await axios.delete(`${backendUrl}/api/appointments/admin/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchAppointments();
@@ -87,7 +88,7 @@ const AdminPanel = () => {
   const handleSaveEdit = async (id) => {
     try {
       await axios.put(
-        `http://localhost:8080/api/appointments/admin/update/${id}`,
+        `${backendUrl}/api/appointments/admin/update/${id}`,
         editedAppointment,
         { headers: { Authorization: `Bearer ${token}` } }
       );
