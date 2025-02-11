@@ -114,7 +114,7 @@ const AdminPanel = () => {
           backgroundAttachment: "fixed",
           zIndex: -1, // Keep it behind other elements
         }}>
-    <Box display="flex" padding="20px" gap="40px" sx={{mt:15}}>
+    <Box display="flex"  flexDirection={{ xs: "column", md: "row" }} padding="20px" gap="40px" sx={{mt:15}}>
       {/* Form for adding new appointments */}
       <Paper style={{ padding: "20px", width: "45%", textAlign: "center"}}>
         <h3>Schedule New Appointment</h3>
@@ -149,14 +149,14 @@ const AdminPanel = () => {
           style={{ marginBottom: "10px" }}
           required
         />
-        <Button variant="contained" color="primary" onClick={handleAddAppointment} style={{ marginTop: "20px" }}>
+        <Button sx={{ backgroundColor: "#9575cd", color: "white", "&:hover": { backgroundColor: "#3A0066" } }} variant="contained" color="#9575cd" onClick={handleAddAppointment} style={{ marginTop: "20px" }}>
           Add Appointment
         </Button>
       </Paper>
-
+ 
       {/* Table displaying appointments */}
       <Box flex={1}>
-        <TableContainer component={Paper} style={{ width: "100%", maxHeight: "400px",maxWidth:"900px", overflowY: "auto" }}>
+        <TableContainer component={Paper} style={{ width: "100%", maxHeight: "400px",maxWidth:"900px", overflowY: "auto" ,overflowX:"auto" }}>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
@@ -165,8 +165,8 @@ const AdminPanel = () => {
                 <TableCell>Start Time</TableCell>
                 <TableCell>End Time</TableCell>
                 <TableCell>Status</TableCell>
-                <TableCell>User Name</TableCell>
-                <TableCell>Email</TableCell>
+                <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>User Name</TableCell>
+                <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>Email</TableCell>
                 <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -208,13 +208,13 @@ const AdminPanel = () => {
                     )}
                   </TableCell>
                   <TableCell>{appointment.status}</TableCell>
-                  <TableCell>{appointment.userName}</TableCell>
-                  <TableCell>{appointment.userEmail}</TableCell>
+                  <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>{appointment.userName}</TableCell>
+                  <TableCell sx={{ display: { xs: "none", sm: "table-cell" } }}>{appointment.userEmail}</TableCell>
                   <TableCell>
                     <Box display="flex" gap="10px">
                       {editingId === appointment.id ? (
                         <>
-                          <Button variant="contained" color="primary" onClick={() => handleSaveEdit(appointment.id)}>
+                          <Button variant="contained" sx={{ backgroundColor: "#9575cd", color: "white", "&:hover": { backgroundColor: "#3A0066" } }} onClick={() => handleSaveEdit(appointment.id)}>
                             Save
                           </Button>
                           <Button variant="contained" color="secondary" onClick={() => setEditingId(null)}>
@@ -226,7 +226,7 @@ const AdminPanel = () => {
                           <Button variant="contained" color="secondary" onClick={() => handleDelete(appointment.id)}>
                             Delete
                           </Button>
-                          <Button variant="contained" color="primary" onClick={() => handleEdit(appointment)}>
+                          <Button  variant="contained" sx={{ backgroundColor: "#9575cd", color: "white", "&:hover": { backgroundColor: "#3A0066" } }} onClick={() => handleEdit(appointment)}>
                             Edit
                           </Button>
                         </>

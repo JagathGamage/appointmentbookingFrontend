@@ -116,7 +116,7 @@ const MyAppointments = () => {
             return (
               <Card key={appt.id} sx={{ p: 2, borderRadius: 2, boxShadow: 3 ,width:'80%',}}>
                 <CardContent>
-                  <Typography variant="h6" sx={{ fontWeight: "bold", color: "#1976d2" }}>
+                  <Typography variant="h6" sx={{ fontWeight: "bold", color: "#9575cd" }}>
                     {formattedDate}
                   </Typography>
                   <Typography
@@ -133,8 +133,8 @@ const MyAppointments = () => {
                   </Typography>
                   <Button
                     variant="contained"
-                    color="error"
-                    sx={{ mt: 2 }}
+                    
+                    sx={{ mt: 2, backgroundColor:"#3A0066" }}
                     onClick={() => cancelAppointment(appt.id)}
                   >
                     Cancel Appointment
