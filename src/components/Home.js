@@ -14,8 +14,10 @@ import {
   Button,
   CircularProgress,
   Alert,
+  Box
 } from "@mui/material";
 import dayjs from "dayjs";
+import bgImage from "../assets/bg.jpg"; 
 
 const Home = () => {
   const [slots, setSlots] = useState([]);
@@ -23,6 +25,8 @@ const Home = () => {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
+  
 
   useEffect(() => {
     fetchAvailableSlots();
@@ -72,6 +76,20 @@ const Home = () => {
   };
 
   return (
+    <Box
+    sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+          zIndex: -1, // Keep it behind other elements
+        }}
+    >
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
       <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: "bold" }}>
         Available Appointment Slots
@@ -104,7 +122,7 @@ const Home = () => {
                       <TableCell align="center">{formattedDate}</TableCell>
                       <TableCell align="center">{formattedStartTime} - {formattedEndTime}</TableCell>
                       <TableCell align="center">
-                        <Button variant="contained" color="primary" onClick={() => handleBook(slot.id)}>
+                        <Button variant="contained" sx={{ backgroundColor: "#9575cd", color: "white", "&:hover": { backgroundColor: "#3A0066" } }} color="#4B0082" onClick={() => handleBook(slot.id)}>
                           Book Now
                         </Button>
                       </TableCell>
@@ -121,6 +139,7 @@ const Home = () => {
         </TableContainer>
       )}
     </Container>
+    </Box>
   );
 };
 

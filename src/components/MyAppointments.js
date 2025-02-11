@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Box, Card, CardContent, Typography, Button, Stack } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import bgImage from "../assets/bg.jpg"; 
 
 const MyAppointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -86,6 +87,18 @@ const MyAppointments = () => {
   };
 
   return (
+    <Box sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundImage: `url(${bgImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundAttachment: "fixed",
+              zIndex: -1, // Keep it behind other elements
+            }}>
     <Box sx={{ maxWidth: 600, mx: "auto", p: 3 }}>
       <Typography variant="h4" sx={{ textAlign: "center", mb: 3, fontWeight: "bold" }}>
         My Appointments
@@ -132,6 +145,7 @@ const MyAppointments = () => {
           })}
         </Stack>
       )}
+    </Box>
     </Box>
   );
 };

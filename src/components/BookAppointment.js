@@ -8,8 +8,10 @@ import {
   Typography,
   Paper,
   Alert,
+  Box
 } from "@mui/material";
 import dayjs from "dayjs";
+import bgImage from "../assets/bg.jpg"; 
 
 const BookAppointment = () => {
   const { appointmentId } = useParams();
@@ -105,7 +107,19 @@ const BookAppointment = () => {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ mt: 5 }}>
+    <Box sx={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundImage: `url(${bgImage})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundAttachment: "fixed",
+      zIndex: -1, // Keep it behind other elements
+    }}>
+    <Container maxWidth="sm" sx={{ mt: 15 }}>
       <Paper elevation={3} sx={{ p: 4 }}>
         <Typography variant="h5" gutterBottom>
           Book Appointment
@@ -154,7 +168,7 @@ const BookAppointment = () => {
             type="submit"
             variant="contained"
             color="primary"
-            sx={{ mt: 3 }}
+            sx={{mt:3, backgroundColor: "#9575cd", color: "white", "&:hover": { backgroundColor: "#3A0066" } }}
             disabled={loading}
           >
             {loading ? "Booking..." : "Confirm Booking"}
@@ -162,6 +176,7 @@ const BookAppointment = () => {
         </form>
       </Paper>
     </Container>
+    </Box>
   );
 };
 

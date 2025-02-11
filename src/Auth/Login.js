@@ -2,6 +2,8 @@ import { useState } from "react";
 import { TextField, Button, Container, Typography, Card, CardContent, Box, Alert } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import bgImage from "../assets/bg.jpg"; 
+
 
 const Login = ({ setLoggedIn, setRole }) => {
   const [email, setEmail] = useState("");
@@ -25,8 +27,6 @@ const Login = ({ setLoggedIn, setRole }) => {
       setLoggedIn(true);
       setRole(response.data.role);
 
-      // alert("Login successful!");
-
       // Redirect based on role
       navigate(response.data.role === "ADMIN" ? "/admin" : "/");
 
@@ -36,41 +36,84 @@ const Login = ({ setLoggedIn, setRole }) => {
   };
 
   return (
-    <Container maxWidth="sm">
-      <Card sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 3 }}>
-        <CardContent>
-          <Typography variant="h4" align="center" gutterBottom>
-            Login
-          </Typography>
+    <Box sx={{
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundImage: `url(${bgImage})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundAttachment: "fixed",
+      zIndex: -1, // Keep it behind other elements
+    }}>
+      {/* Background Image Layer */}
+      {/* <Box
+        
+      /> */}
 
-          {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
-
-          <Box component="form" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <TextField
-              label="Email"
-              type="email"
-              fullWidth
-              variant="outlined"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <TextField
-              label="Password"
-              type="password"
-              fullWidth
-              variant="outlined"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-            <Button variant="contained" color="primary" fullWidth onClick={handleLogin}>
+      {/* Login Card */}
+      <Container
+        maxWidth="sm"
+        sx={{
+          mt:15
+        }}
+      >
+        <Card
+          sx={{
+            p: 4,
+            boxShadow: 5,
+            borderRadius: 3,
+            backdropFilter: "blur(10px)",
+            background: "rgba(255, 255, 255, 0.85)",
+          }}
+        >
+          <CardContent>
+            <Typography variant="h4" align="center" gutterBottom sx={{ fontWeight: "bold", color: "#9575cd" }}>
               Login
-            </Button>
-          </Box>
-        </CardContent>
-      </Card>
-    </Container>
+            </Typography>
+            {/* <Typography variant="subtitle1" align="center" color="textSecondary">
+              Access your appointment dashboard
+            </Typography> */}
+
+            {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
+
+            <Box component="form" sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              <TextField
+                label="Email"
+                type="email"
+                fullWidth
+                variant="outlined"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                sx={{ backgroundColor: "white", borderRadius: 1 }}
+              />
+              <TextField
+                label="Password"
+                type="password"
+                fullWidth
+                variant="outlined"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                sx={{ backgroundColor: "white", borderRadius: 1 }}
+              />
+              <Button
+                variant="contained"
+                color="primary"
+                fullWidth
+                onClick={handleLogin}
+                sx={{ backgroundColor: "#9575cd", color: "white", "&:hover": { backgroundColor: "#3A0066" } }} 
+              >
+                Login
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
+      </Container>
+    </Box>
   );
 };
 

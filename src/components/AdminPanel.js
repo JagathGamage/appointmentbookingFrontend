@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Button, Table, TableHead, TableRow, TableCell, TableBody, TableContainer, Paper, TextField, Snackbar, Alert, Box } from "@mui/material";
-
+import bgImage from "../assets/bg.jpg"; 
 const AdminPanel = () => {
   const [appointments, setAppointments] = useState([]);
   const [newAppointment, setNewAppointment] = useState({ date: "", startTime: "", endTime: "" });
@@ -102,7 +102,19 @@ const AdminPanel = () => {
   };
 
   return (
-    <Box display="flex" padding="20px" gap="40px" >
+    <Box sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+          zIndex: -1, // Keep it behind other elements
+        }}>
+    <Box display="flex" padding="20px" gap="40px" sx={{mt:15}}>
       {/* Form for adding new appointments */}
       <Paper style={{ padding: "20px", width: "45%", textAlign: "center"}}>
         <h3>Schedule New Appointment</h3>
@@ -234,6 +246,7 @@ const AdminPanel = () => {
           {errorMessage}
         </Alert>
       </Snackbar>
+    </Box>
     </Box>
   );
 };

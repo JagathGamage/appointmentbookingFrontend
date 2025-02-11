@@ -45,7 +45,7 @@ function App() {
 
   return (
     <Router>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ backgroundColor: "#9575cd" }}>
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Appointment Booking

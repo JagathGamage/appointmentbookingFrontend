@@ -5,7 +5,7 @@ const Navbar = ({ loggedIn, role, handleLogout }) => {
   const navigate = useNavigate(); // ✅ Safe to use here since it's inside Router
 
   return (
-    <AppBar position="static">
+    <AppBar position="static"  >
       <Toolbar>
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Appointment Booking

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TextField, Button, Container, Typography, Card, CardContent, Box, Alert } from "@mui/material";
 import axios from "axios";
+import bgImage from "../assets/bg.jpg"; 
 
 const Signup = () => {
   const [name, setName] = useState("");
@@ -28,7 +29,19 @@ const Signup = () => {
   };
 
   return (
-    <Container maxWidth="sm">
+    <Box sx={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              backgroundImage: `url(${bgImage})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundAttachment: "fixed",
+              zIndex: -1, // Keep it behind other elements
+            }}>
+    <Container maxWidth="sm" sx={{mt:15}}>
       <Card sx={{ mt: 5, p: 3, boxShadow: 3, borderRadius: 3 }}>
         <CardContent>
           <Typography variant="h4" align="center" gutterBottom>
@@ -73,6 +86,7 @@ const Signup = () => {
         </CardContent>
       </Card>
     </Container>
+    </Box>
   );
 };
 
