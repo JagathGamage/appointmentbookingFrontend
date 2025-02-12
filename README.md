@@ -125,6 +125,8 @@ Replace your_password with your actual MySQL password.
 
 2️⃣ Run the Spring Boot Backend Locally
 
+git clone https://github.com/JagathGamage/appointmentBooking.git
+
 Step 1: Install Dependencies
 
 Ensure you have Java 17+ and Maven installed.
@@ -154,6 +156,8 @@ mvnw.cmd spring-boot:run # For Windows
 The backend should now be running at http://localhost:8080.
 
 3️⃣ Run the React Frontend Locally
+
+git clone https://github.com/JagathGamage/appointmentbookingFrontend.git
 
 Step 1: Install Node.js & npm (If Not Installed)
 
