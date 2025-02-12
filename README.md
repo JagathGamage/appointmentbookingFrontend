@@ -1,5 +1,7 @@
 🚀 Features
+
 🔹 User Features
+
 ✔ User Registration & Login – Secure authentication with JWT.
 
 ✔ View Available Time Slots – See free slots in the system.
