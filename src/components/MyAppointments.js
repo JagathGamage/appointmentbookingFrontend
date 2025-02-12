@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Box, Card, CardContent, Typography, Button, Stack } from "@mui/material";
+import { Box, Card, CardContent, Typography, Button, Stack, CircularProgress, Grid } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import bgImage from "../assets/bg.jpg"; 
 
 const MyAppointments = () => {
   const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(true);
   const userEmail = localStorage.getItem("email");
   const token = localStorage.getItem("token");
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -13,6 +14,7 @@ const MyAppointments = () => {
   useEffect(() => {
     if (!userEmail || !token) {
       console.error("User email or token missing");
+      setLoading(false);
       return;
     }
 
@@ -29,10 +31,12 @@ const MyAppointments = () => {
       })
       .catch((error) => {
         console.error("Error fetching appointments:", error.response?.data || error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [userEmail, token]);
 
-  // ✅ Function to format API date and time arrays
   const formatDateTime = (dateArray, startTimeArray, endTimeArray) => {
     if (!Array.isArray(dateArray) || !Array.isArray(startTimeArray) || !Array.isArray(endTimeArray)) {
       return { formattedDate: "Invalid Date", formattedStartTime: "Invalid Time", formattedEndTime: "Invalid Time" };
@@ -42,9 +46,8 @@ const MyAppointments = () => {
     const [startHour, startMinute] = startTimeArray;
     const [endHour, endMinute] = endTimeArray;
 
-    const appointmentDate = new Date(year, month - 1, day); // Month is 0-based in JS
+    const appointmentDate = new Date(year, month - 1, day);
 
-    // Format the date
     const formattedDate = new Intl.DateTimeFormat("en-US", {
       weekday: "long",
       month: "long",
@@ -52,7 +55,6 @@ const MyAppointments = () => {
       year: "numeric",
     }).format(appointmentDate);
 
-    // Format start and end time
     const formatTime = (hour, minute) =>
       new Intl.DateTimeFormat("en-US", {
         hour: "numeric",
@@ -60,13 +62,16 @@ const MyAppointments = () => {
         hour12: true,
       }).format(new Date(0, 0, 0, hour, minute));
 
-    const formattedStartTime = formatTime(startHour, startMinute);
-    const formattedEndTime = formatTime(endHour, endMinute);
-
-    return { formattedDate, formattedStartTime, formattedEndTime };
+    return {
+      formattedDate,
+      formattedStartTime: formatTime(startHour, startMinute),
+      formattedEndTime: formatTime(endHour, endMinute),
+    };
   };
 
   const cancelAppointment = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to cancel this appointment?");
+    if (!confirmDelete) return;
     try {
       await axios.post(
         `${backendUrl}/api/appointments/cancel/${id}`,
@@ -88,64 +93,69 @@ const MyAppointments = () => {
 
   return (
     <Box sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              backgroundImage: `url(${bgImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              backgroundAttachment: "fixed",
-              zIndex: -1, // Keep it behind other elements
-            }}>
-    <Box sx={{ maxWidth: 600, mx: "auto", p: 3 }}>
-      <Typography variant="h4" sx={{ textAlign: "center", mb: 3, fontWeight: "bold" }}>
-        My Appointments
-      </Typography>
-
-      {appointments.length === 0 ? (
-        <Typography variant="body1" sx={{ textAlign: "center", color: "gray" }}>
-          No appointments found.
+      position: "absolute",
+      top: 0,
+      left: 0,
+      width: "100%",
+      height: "100%",
+      backgroundImage: `url(${bgImage})`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundAttachment: "fixed",
+      zIndex: -1,
+    }}>
+      <Box sx={{ maxWidth: "90%", mx: "auto", p: 3 }}>
+        <Typography variant="h4" sx={{ textAlign: "center", mb: 3, fontWeight: "bold" }}>
+          My Appointments
         </Typography>
-      ) : (
-        <Stack spacing={2}>
-          {appointments.map((appt) => {
-            const { formattedDate, formattedStartTime, formattedEndTime } = formatDateTime(appt.date, appt.startTime, appt.endTime);
 
-            return (
-              <Card key={appt.id} sx={{ p: 2, borderRadius: 2, boxShadow: 3 ,width:'80%',}}>
-                <CardContent>
-                  <Typography variant="h6" sx={{ fontWeight: "bold", color: "#9575cd" }}>
-                    {formattedDate}
-                  </Typography>
-                  <Typography
-                    variant="body1"
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 1,
-                      fontSize: "1.1rem",
-                      color: "#555",
-                    }}
-                  >
-                    <AccessTimeIcon fontSize="small" /> {formattedStartTime} - {formattedEndTime}
-                  </Typography>
-                  <Button
-                    variant="contained"
-                    
-                    sx={{ mt: 2, backgroundColor:"#3A0066" }}
-                    onClick={() => cancelAppointment(appt.id)}
-                  >
-                    Cancel Appointment
-                  </Button>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </Stack>
-      )}
-    </Box>
+        {loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" height="50vh">
+            <CircularProgress size={50} />
+          </Box>
+        ) : appointments.length === 0 ? (
+          <Typography variant="body1" sx={{ textAlign: "center", color: "gray" }}>
+            No appointments found.
+          </Typography>
+        ) : (
+          <Grid container spacing={2} justifyContent="center">
+            {appointments.map((appt) => {
+              const { formattedDate, formattedStartTime, formattedEndTime } = formatDateTime(appt.date, appt.startTime, appt.endTime);
+
+              return (
+                <Grid item xs={12} sm={6} md={4} key={appt.id}>
+                  <Card sx={{ p: 2, borderRadius: 2, boxShadow: 3 }}>
+                    <CardContent>
+                      <Typography variant="h6" sx={{ fontWeight: "bold", color: "#9575cd" }}>
+                        {formattedDate}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1,
+                          fontSize: "1.1rem",
+                          color: "#555",
+                        }}
+                      >
+                        <AccessTimeIcon fontSize="small" /> {formattedStartTime} - {formattedEndTime}
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        sx={{ mt: 2, backgroundColor: "#3A0066" }}
+                        onClick={() => cancelAppointment(appt.id)}
+                      >
+                        Cancel Appointment
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        )}
+      </Box>
     </Box>
   );
 };

@@ -54,22 +54,28 @@ const BookAppointment = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Email validation regex pattern
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
     if (!formData.name || !formData.email) {
       setError("Please fill in all fields.");
       return;
     }
-
+  
+    if (!emailPattern.test(formData.email)) {
+      setError("Please enter a valid email address.");
+      return;
+    }
+  
     setError("");
     setLoading(true);
-
+  
     try {
-     
-
       if (!token || token.split(".").length !== 3) {
         throw new Error("Invalid or missing JWT token. Please log in again.");
       }
-
+  
       await axios.post(
         `${backendUrl}/api/appointments/book`,
         { appointmentId, ...formData },
@@ -80,7 +86,7 @@ const BookAppointment = () => {
           },
         }
       );
-
+  
       alert("Appointment booked successfully!");
     } catch (error) {
       setError(error.message || "Error booking appointment. Please try again.");
@@ -89,6 +95,7 @@ const BookAppointment = () => {
       setLoading(false);
     }
   };
+  
 
   const formatDateTime = (dateArray, startTimeArray, endTimeArray) => {
     if (!Array.isArray(dateArray) || !Array.isArray(startTimeArray) || !Array.isArray(endTimeArray)) {

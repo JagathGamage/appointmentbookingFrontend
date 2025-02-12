@@ -79,7 +79,7 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Button variant="contained" color="primary" fullWidth type="submit">
+            <Button variant="contained" color="primary" fullWidth type="submit" sx={{ backgroundColor: "#9575cd", color: "white", "&:hover": { backgroundColor: "#3A0066" } }} >
               Sign Up
             </Button>
           </Box>

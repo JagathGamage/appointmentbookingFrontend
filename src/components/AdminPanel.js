@@ -61,11 +61,16 @@ const AdminPanel = () => {
         setOpenSnackbar(true);
       } else {
         console.error("Error adding appointment", error);
+        // setErrorMessage(error);
+        // setOpenSnackbar(true);
       }
     }
   };
 
   const handleDelete = async (id) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this appointment?");
+    if (!confirmDelete) return;
+  
     try {
       await axios.delete(`${backendUrl}/api/appointments/admin/delete/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -75,6 +80,7 @@ const AdminPanel = () => {
       console.error("Error deleting appointment", error);
     }
   };
+  
 
   const handleEdit = (appointment) => {
     setEditingId(appointment.id);
@@ -94,6 +100,7 @@ const AdminPanel = () => {
       );
       setEditingId(null);
       fetchAppointments();
+      alert("Appointemnt edited successfully!");
     } catch (error) {
       setErrorMessage(error.response.data);
       setOpenSnackbar(true);
@@ -116,7 +123,11 @@ const AdminPanel = () => {
         }}>
     <Box display="flex"  flexDirection={{ xs: "column", md: "row" }} padding="20px" gap="40px" sx={{mt:15}}>
       {/* Form for adding new appointments */}
-      <Paper style={{ padding: "20px", width: "45%", textAlign: "center"}}>
+      <Paper sx={{ 
+          padding: "20px", 
+          width: { xs: "90%", md: "45%" },  // Full width on mobile, 45% on medium screens and above
+          textAlign: "center" 
+        }}>
         <h3>Schedule New Appointment</h3>
         <TextField
           label="Date"
