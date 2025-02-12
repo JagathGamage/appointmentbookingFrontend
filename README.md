@@ -183,7 +183,7 @@ npm install
 
 Step 3: Configure API Base URL
 
-Open src/.env and update it to match the local backend:
+Open .env and update it to match the local backend:
 
 REACT_APP_BACKEND_URL = "http://localhost:8080";
 
