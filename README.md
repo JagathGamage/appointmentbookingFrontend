@@ -1,9 +1,13 @@
 🚀 Features
 🔹 User Features
 ✔ User Registration & Login – Secure authentication with JWT.
+
 ✔ View Available Time Slots – See free slots in the system.
+
 ✔ Book Appointments – Select a preferred time slot and fill out a form to confirm booking.
+
 ✔ Manage Appointments – View and cancel booked appointments.
+
 🔹 Admin Features
 ✔ View All Appointments – See details of all scheduled appointments.
 ✔ Add New Appointments – Create appointment slots manually.
