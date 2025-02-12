@@ -1,70 +1,121 @@
-# Getting Started with Create React App
+🚀 Features
+🔹 User Features
+✔ User Registration & Login – Secure authentication with JWT.
+✔ View Available Time Slots – See free slots in the system.
+✔ Book Appointments – Select a preferred time slot and fill out a form to confirm booking.
+✔ Manage Appointments – View and cancel booked appointments.
+🔹 Admin Features
+✔ View All Appointments – See details of all scheduled appointments.
+✔ Add New Appointments – Create appointment slots manually.
+✔ Manage Bookings – Modify or delete appointments.
+🔹 Security Features
+✔ JWT-Based Authentication – Secure login with JSON Web Token.
+✔ Role-Based Access Control – Different access levels for users and admins.
+✔ Password Encryption – Secure password storage using BCrypt.
+🔹 CI/CD & Deployment
+✔ Automated CI/CD Pipeline – Ensures seamless deployment.
+✔ Frontend on Vercel – React UI hosted on Vercel.
+✔ Backend on Fly.io – Spring Boot backend deployed on Fly.io.
+✔ Database on Railway – MySQL database hosted on Railway.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+🛠️ Tools & Technologies Used
+🌐 Frontend (React)
+React.js – UI development.
+Axios – API calls.
+React Router – Page navigation.
+Material-UI (MUI) – UI components.
+🖥 Backend (Spring Boot)
+Spring Boot – Backend framework.
+Spring Security – Authentication & authorization.
+Spring Data JPA – Database interaction.
+JWT (JSON Web Token) – Secure authentication.
+💾 Database
+MySQL – Relational database for appointment storage.
+Hibernate – ORM for database operations.
+☁️ Deployment & DevOps
+Fly.io – Backend hosting.
+Vercel – Frontend hosting.
+Railway – MySQL database hosting.
+Docker – Containerization for local testing.
+GitHub Actions – CI/CD automation.
 
-## Available Scripts
+1️⃣ Set Up MySQL Database Locally
+Step 1: Install MySQL (If Not Installed)
+Download and install MySQL from MySQL official website.
+Alternatively, you can use XAMPP or Docker to run MySQL.
+Step 2: Start MySQL Server
+Ensure MySQL is running using:
+mysql -u root -p
 
-In the project directory, you can run:
+Enter your MySQL root password when prompted.
+Step 3: Create the Database
+Run the following SQL commands in MySQL:
+sql
+CopyEdit
+CREATE DATABASE appointment_booking;
+USE appointment_booking;
 
-### `npm start`
+Step 4: Configure MySQL Connection in Spring Boot
+Edit the application.properties file in the Spring Boot backend:
+For application.properties
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+spring.datasource.url=jdbc:mysql://localhost:3306/appointment_booking
+spring.datasource.username=root
+spring.datasource.password=your_password
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+spring.jpa.hibernate.ddl-auto=update
 
-### `npm test`
+Replace your_password with your actual MySQL password.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2️⃣ Run the Spring Boot Backend Locally
+Step 1: Install Dependencies
+Ensure you have Java 17+ and Maven installed.
+Check Java version:
+java -version
 
-### `npm run build`
+Check Maven version:
+mvn -version
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Step 2: Run the Spring Boot Application
+Navigate to the backend project folder:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+cd appointmentBooking
+Run the application using:
+mvn spring-boot:run
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+or
+mvnw.cmd spring-boot:run # For Windows
 
-### `npm run eject`
+The backend should now be running at http://localhost:8080.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+3️⃣ Run the React Frontend Locally
+Step 1: Install Node.js & npm (If Not Installed)
+Download and install Node.js from Node.js official website.
+Check installation:
+node -v
+npm -v
+Step 2: Install Dependencies
+Navigate to the frontend folder:
+cd appointmentBooking
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Install dependencies:
+npm install
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Step 3: Configure API Base URL
+Open src/.env and update it to match the local backend:
+REACT_APP_BACKEND_URL = "http://localhost:8080";
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Step 4: Start the React App
+Run:
+npm start
+The frontend should now be running at http://localhost:3000.
 
-## Learn More
+4️⃣ Test the Application Locally
+Open MySQL and verify that the database is running.
+Start the Spring Boot backend (http://localhost:8080).
+Start the React frontend (http://localhost:3000).
+Open your browser and access the frontend.
+Login/Register as a User or Admin and test booking, cancellation, and admin management features.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
