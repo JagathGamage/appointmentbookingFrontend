@@ -129,6 +129,12 @@ Replace your_password with your actual MySQL password.
 
 git clone https://github.com/JagathGamage/appointmentBooking.git
 
+📌please make sure to replace @CrossOrigin in AppointmentController with your frontend url(http://localhost:3000)  ,
+
+📌ALLOWED_ORIGIN  in Securityconfig class with your frontend url(http://localhost:3000) and
+
+📌allowedOrigins in CorsConfig class with your frontend url(http://localhost:3000) 
+
 Step 1: Install Dependencies
 
 Ensure you have Java 17+ and Maven installed.
