@@ -125,6 +125,13 @@ spring.jpa.hibernate.ddl-auto=update
 
 Replace your_password with your actual MySQL password.
 
+Step 5:Add admin user manually
+
+INSERT INTO users (email, name, password, role)  
+VALUES ('admin@gmail.com', 'admin', '$2a$10$G2qi84P/2ywVFDgFXHGMaO/XH18qFnlgMG7x9/13al.NTu9pAWfU.', 'ADMIN');
+
+Password: 1234
+
 2️⃣ Run the Spring Boot Backend Locally
 
 git clone https://github.com/JagathGamage/appointmentBooking.git
