@@ -46,7 +46,7 @@ const BookAppointment = () => {
   };
 
   const prefillUserDetails = () => {
-    const storedEmail = localStorage.getItem("userEmail");
+    const storedEmail = localStorage.getItem("email");
     if (storedEmail) {
       setFormData((prev) => ({ ...prev, email: storedEmail }));
     }
